@@ -40,6 +40,7 @@ export function useMarketsOffers(query: MarketsOfferesQuery) {
 const transformData = (offers: Array<OfferInfo>) => {
   return offers.map((offerObj: OfferInfo): MarketOfferData => {
     const offer = offerObj.toObject();
+    const PLATFORM_FEE = 0.01;
 
     return {
       ...offer,
@@ -51,7 +52,7 @@ const transformData = (offers: Array<OfferInfo>) => {
       sellerSecurityDeposit: HavenoUtils.atomicUnitsToXmr(
         offer.sellerSecurityDeposit
       ),
-      makerFee: HavenoUtils.atomicUnitsToXmr(offer.makerFee),
+      makerFee: HavenoUtils.atomicUnitsToXmr(offer.makerFee) + PLATFORM_FEE,
       price: parseFloat(offer.price),
       volume: parseFloat(offer.volume),
       minVolume: parseFloat(offer.minVolume),
